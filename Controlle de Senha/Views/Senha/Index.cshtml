@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Controlle_de_Senha.Models.Password>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Senha</h2>
+
+<br />
+<table class="table">
+    <tr>
+        <th>
+           <label>Normal</label>
+        </th>
+        <th>
+            <label>Preferencial</label>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroSenha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumSenhaPreferencial)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

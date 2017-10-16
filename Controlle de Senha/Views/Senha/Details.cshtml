@@ -1,0 +1,120 @@
+﻿@model Controlle_de_Senha.Models.Password
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<head>
+    <title></title>
+    <meta http-equiv="refresh" content="5" />
+</head>
+
+@*<h2>Details</h2>
+
+    <div>
+        <h4>Senha</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NumeroSenha)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.NumeroSenha)
+            </dd>
+
+        </dl>
+    </div>*@
+<body onload="JavaScript:timedRefresh(5000);">
+
+    @if (Model.Preferencial == false)
+    {
+        <div class="jumbotron" style="margin-left: -350px; width: 1200px;">
+            <h3>Proximo cliente senha:  <span style="font-size: 355px;"><span>N</span>@Html.DisplayFor(model => model.NumeroSenha)</span></h3>
+            <h3>Guiche:  <span style="font-size: 205px;">@Html.DisplayFor(model => model.Guiche)</span></h3>
+        </div>
+    }
+    else
+    {
+        <div class="jumbotron" style="margin-left: -350px; width: 1200px;">
+            <h3>Proximo cliente senha:  <span style="font-size: 355px;"><span>P</span>@Html.DisplayFor(model => model.NumSenhaPreferencial)</span></h3>
+            <h3>Guiche:  <span style="font-size: 205px;">@Html.DisplayFor(model => model.Guiche)</span></h3>
+        </div>
+    }
+
+
+    <h3 style="width: 65%; margin-left: 1000px; margin-top: -720px;" >Histórico de chamadas</h3>
+    <table style="width: 50%; margin-left: 900px;">
+        <tr>
+            <th><h2>Senha</h2></th>
+            <th><h2>Guiche</h2></th>
+            <th><h2>Hora</h2></th>
+        
+        </tr>
+
+        <tr>
+            <td>
+                <h2><span>N</span>@Html.DisplayFor(model => model.NumeroSenha)</h2>
+            </td>
+            <td>
+                <h2>@Html.DisplayFor(model => model.Guiche)</h2>
+            </td>
+
+            <td>
+                <h2>@ViewBag.Horario</h2>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <h2><span>P</span>@Html.DisplayFor(model => model.NumSenhaPreferencial)</h2>
+            </td>
+            <td>
+                <h2>@Html.DisplayFor(model => model.Guiche)</h2>
+            </td>
+            <td>
+                <h2>@ViewBag.Horario</h2>
+            </td>
+
+        </tr>
+
+        @foreach (var senhas in ViewBag.ListaSenhas)
+        {
+
+            <tr>
+                <td><h2>@senhas.Senha</h2></td>
+
+
+                <td><h2>@senhas.Guiche</h2></td>
+
+                @if (senhas.DateTime != null)
+                {
+                    <td><h2>@senhas.DateTime.ToString("HH:mm")</h2></td>
+                }
+                else
+                {
+                    <td></td>
+                }
+
+         
+            </tr>
+
+        }
+    </table>
+   
+    <div style="margin-bottom: -900px;"></div>
+</body>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        function timedRefresh(timeoutPeriod) {
+            setTimeout(function () {
+                location.reload(true);
+            }, timeoutPeriod);
+        }
+    </script>
+
+}

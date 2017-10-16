@@ -1,0 +1,84 @@
+﻿@model Controlle_de_Senha.Models.Password
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Chamar Cliente / Senha</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (ViewBag.SenhaChamada == false)
+    {
+
+
+
+    <div class="form-horizontal">
+        <h4>Senha</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group" style="display: none">
+            @Html.LabelFor(model => model.NumeroSenha, "Senha Normal", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("SenhaNormal", new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none">
+            @Html.LabelFor(model => model.NumSenhaPreferencial, "Senha Preferencial", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBox("Preferencial", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="Normal" type="submit" value="Senha Normal" class="btn btn-lg btn-primary" />
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="Preferencial" type="submit" value="Senha Preferencial" class="btn btn-lg btn-success" />
+            </div>
+        </div>
+
+
+    </div>
+    }
+    else
+    {
+        <h3>Senha número @ViewBag.NumeroSenha chamado com sucesso!</h3>
+        <br />
+
+        <div>
+            @Html.ActionLink("Voltar chamar outra senha?", "ChamarSenha")
+        </div>
+    }
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        var clicked = false;
+        $("#Normal").on("click", function () {
+            $("#SenhaNormal").prop("checked", !clicked);
+            clicked = !clicked;
+        });
+
+</script>
+
+}
+
+
